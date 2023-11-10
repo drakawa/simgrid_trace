@@ -186,11 +186,11 @@ simgrid_topo/crossbar_64_cg.W.64_trace_0.csv  simgrid_topo/crossbar_64_ft.W.64_t
   - サイクルアキュレートシミュレータ (booksim) に入力可能なフォーマットとするため、データを整形する
 
 - コマンド
+  - 1クロック=1e9秒, フリットサイズ4096としている
 ```
 cd ~/workspace/NPB3.3-MPI/simgrid_topo/
 python3 purify_csvs.py 1e9 4096
 ```
-  - 1クロック=1e9秒, フリットサイズ4096としている
 
 - 実行結果
 ```
