@@ -181,4 +181,81 @@ simgrid_topo/crossbar_64_bt.W.64_trace_0.csv  simgrid_topo/crossbar_64_ep.W.64_t
 simgrid_topo/crossbar_64_cg.W.64_trace_0.csv  simgrid_topo/crossbar_64_ft.W.64_trace_0.csv  simgrid_topo/crossbar_64_lu.W.64_trace_0.csv  simgrid_topo/crossbar_64_sp.W.64_trace_0.csv
 ```
 
+## 通信トレースcsvファイルの整形 (*.trの生成)
+- 生成された通信トレースのcsvファイルはパケットの注入時刻がサイクル単位でなく、データサイズがパケット単位ではない
+  - サイクルアキュレートシミュレータ (booksim) に入力可能なフォーマットとするため、データを整形する
+
+- コマンド
+```
+cd ~/workspace/NPB3.3-MPI/simgrid_topo/
+python3 purify_csvs.py 1e9 4096
+```
+
+- 実行結果
+```
+root@f10372aaa07f:~/workspace/NPB3.3-MPI/simgrid_topo# python3 purify_csvs.py 1e9 4096
+args: Namespace(flit_size=4096, sample_rate=1000000000.0)
+crossbar_64_sp.W.64_trace_0.csv
+crossbar_64_sp.W.64_trace
+['crossbar_64_bt.W.64_trace', 'crossbar_64_cg.W.64_trace', 'crossbar_64_ep.W.64_trace', 'crossbar_64_ft.W.64_trace', 'crossbar_64_is.W.64_trace', 'crossbar_64_lu.W.64_trace', 'crossbar_64_mg.W.64_trace', 'crossbar_64_sp.W.64_trace']
+num_packets, num_cycles: 620085 59835600
+outf_name: crossbar_64_bt.W.64_trace_1.00e09_4096_620085_59835600.tr
+num_packets, num_cycles: 267004 42483200
+outf_name: crossbar_64_cg.W.64_trace_1.00e09_4096_267004_42483200.tr
+num_packets, num_cycles: 2655 9321310
+outf_name: crossbar_64_ep.W.64_trace_1.00e09_4096_2655_9321310.tr
+num_packets, num_cycles: 18223 2565130
+outf_name: crossbar_64_ft.W.64_trace_1.00e09_4096_18223_2565130.tr
+num_packets, num_cycles: 53946 4855730
+outf_name: crossbar_64_is.W.64_trace_1.00e09_4096_53946_4855730.tr
+num_packets, num_cycles: 2163744 249748000
+outf_name: crossbar_64_lu.W.64_trace_1.00e09_4096_2163744_249748000.tr
+num_packets, num_cycles: 72726 5805100
+outf_name: crossbar_64_mg.W.64_trace_1.00e09_4096_72726_5805100.tr
+num_packets, num_cycles: 1234359 131198000
+outf_name: crossbar_64_sp.W.64_trace_1.00e09_4096_1234359_131198000.tr
+```
+
+- ファイルフォーマット
+  - 1行目は、トレースファイルに含まれるパケット数
+  - 2行目以降のファイルフォーマットは以下の通り
+  ```
+  <clk> <src> <dest> <packet_size>
+  ```
+
+```
+root@f10372aaa07f:~/workspace/NPB3.3-MPI/simgrid_topo# head -n30 crossbar_64_is.W.64_trace_1.00e09_4096_53946_4855730.tr
+53946
+2242 56 57 1
+2242 57 56 1
+2278 48 49 1
+2278 49 48 1
+2344 60 61 1
+2344 61 60 1
+2353 22 23 1
+2353 23 22 1
+2392 38 39 1
+2392 39 38 1
+2416 54 55 1
+2416 55 54 1
+2510 12 13 1
+2510 13 12 1
+2512 34 35 1
+2512 35 34 1
+2572 18 19 1
+2572 19 18 1
+2574 30 31 1
+2574 31 30 1
+2706 62 63 1
+2706 63 62 1
+2737 24 25 1
+2737 25 24 1
+2748 36 37 1
+2748 37 36 1
+2750 4 5 1
+2750 5 4 1
+2750 8 9 1
+```
+
+
 
