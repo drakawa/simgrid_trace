@@ -166,7 +166,19 @@ smpirun --cfg=smpi/privatize_global_variables:yes -platform ./simgrid_topo/cross
 ```
 
  ### シミュレーションの一括実行
- 
+ - コマンド
+```
+python3 smpirun_evalall.py
+```
 
+- 各アプリケーションのログファイル、通信トレースのcsvファイルが得られる
+```
+root@f10372aaa07f:~/workspace/NPB3.3-MPI# ls simgrid_topo/*.log
+simgrid_topo/crossbar_64_bt.W.64.log  simgrid_topo/crossbar_64_ep.W.64.log  simgrid_topo/crossbar_64_is.W.64.log  simgrid_topo/crossbar_64_mg.W.64.log
+simgrid_topo/crossbar_64_cg.W.64.log  simgrid_topo/crossbar_64_ft.W.64.log  simgrid_topo/crossbar_64_lu.W.64.log  simgrid_topo/crossbar_64_sp.W.64.log
+root@f10372aaa07f:~/workspace/NPB3.3-MPI# ls simgrid_topo/*.csv
+simgrid_topo/crossbar_64_bt.W.64_trace_0.csv  simgrid_topo/crossbar_64_ep.W.64_trace_0.csv  simgrid_topo/crossbar_64_is.W.64_trace_0.csv  simgrid_topo/crossbar_64_mg.W.64_trace_0.csv
+simgrid_topo/crossbar_64_cg.W.64_trace_0.csv  simgrid_topo/crossbar_64_ft.W.64_trace_0.csv  simgrid_topo/crossbar_64_lu.W.64_trace_0.csv  simgrid_topo/crossbar_64_sp.W.64_trace_0.csv
+```
 
 
