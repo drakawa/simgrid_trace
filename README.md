@@ -181,6 +181,41 @@ simgrid_topo/crossbar_64_bt.W.64_trace_0.csv  simgrid_topo/crossbar_64_ep.W.64_t
 simgrid_topo/crossbar_64_cg.W.64_trace_0.csv  simgrid_topo/crossbar_64_ft.W.64_trace_0.csv  simgrid_topo/crossbar_64_lu.W.64_trace_0.csv  simgrid_topo/crossbar_64_sp.W.64_trace_0.csv
 ```
 
+- 生成ファイル例
+```
+root@f10372aaa07f:~/workspace/NPB3.3-MPI/simgrid_topo# head -n30 crossbar_64_is.W.64_trace_0.csv
+src,dst,size,rate,start,latency,route
+n57,n58,4,8.12084e+09,2.2415e-06,3.74729e-06,linkn57s1&ls1&linkn58s1&
+n58,n57,4,8.12084e+09,2.2415e-06,3.74729e-06,linkn58s1&ls1&linkn57s1&
+n49,n50,4,8.12084e+09,2.2785e-06,3.74729e-06,linkn49s1&ls1&linkn50s1&
+n50,n49,4,8.12084e+09,2.2785e-06,3.74729e-06,linkn50s1&ls1&linkn49s1&
+n62,n61,4,8.12084e+09,2.3435e-06,3.74729e-06,linkn62s1&ls1&linkn61s1&
+n61,n62,4,8.12084e+09,2.3435e-06,3.74729e-06,linkn61s1&ls1&linkn62s1&
+n24,n23,4,8.12084e+09,2.353e-06,3.74729e-06,linkn24s1&ls1&linkn23s1&
+n23,n24,4,8.12084e+09,2.353e-06,3.74729e-06,linkn23s1&ls1&linkn24s1&
+n40,n39,4,8.12084e+09,2.392e-06,3.74729e-06,linkn40s1&ls1&linkn39s1&
+n39,n40,4,8.12084e+09,2.392e-06,3.74729e-06,linkn39s1&ls1&linkn40s1&
+n56,n55,4,8.12084e+09,2.416e-06,3.74729e-06,linkn56s1&ls1&linkn55s1&
+n55,n56,4,8.12084e+09,2.416e-06,3.74729e-06,linkn55s1&ls1&linkn56s1&
+n14,n13,4,8.12084e+09,2.51e-06,3.74729e-06,linkn14s1&ls1&linkn13s1&
+n13,n14,4,8.12084e+09,2.51e-06,3.74729e-06,linkn13s1&ls1&linkn14s1&
+n35,n36,4,8.12084e+09,2.5115e-06,3.74729e-06,linkn35s1&ls1&linkn36s1&
+n36,n35,4,8.12084e+09,2.5115e-06,3.74729e-06,linkn36s1&ls1&linkn35s1&
+n19,n20,4,8.12084e+09,2.5725e-06,3.74729e-06,linkn19s1&ls1&linkn20s1&
+n20,n19,4,8.12084e+09,2.5725e-06,3.74729e-06,linkn20s1&ls1&linkn19s1&
+n31,n32,4,8.12084e+09,2.5745e-06,3.74729e-06,linkn31s1&ls1&linkn32s1&
+n32,n31,4,8.12084e+09,2.5745e-06,3.74729e-06,linkn32s1&ls1&linkn31s1&
+n63,n64,4,8.12084e+09,2.7065e-06,3.74729e-06,linkn63s1&ls1&linkn64s1&
+n64,n63,4,8.12084e+09,2.7065e-06,3.74729e-06,linkn64s1&ls1&linkn63s1&
+n26,n25,4,8.12084e+09,2.737e-06,3.74729e-06,linkn26s1&ls1&linkn25s1&
+n25,n26,4,8.12084e+09,2.737e-06,3.74729e-06,linkn25s1&ls1&linkn26s1&
+n37,n38,4,8.12084e+09,2.748e-06,3.74729e-06,linkn37s1&ls1&linkn38s1&
+n38,n37,4,8.12084e+09,2.748e-06,3.74729e-06,linkn38s1&ls1&linkn37s1&
+n5,n6,4,8.12084e+09,2.7495e-06,3.74729e-06,linkn5s1&ls1&linkn6s1&
+n54,n53,4,8.12084e+09,2.7495e-06,3.74729e-06,linkn54s1&ls1&linkn53s1&
+n9,n10,4,8.12084e+09,2.7495e-06,3.74729e-06,linkn9s1&ls1&linkn10s1&
+```
+
 ## 通信トレースcsvファイルの整形 (*.trの生成)
 - 生成された通信トレースのcsvファイルはパケットの注入時刻がサイクル単位でなく、データサイズがパケット単位ではない
   - サイクルアキュレートシミュレータ (booksim) に入力可能なフォーマットとするため、データを整形する
