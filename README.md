@@ -112,7 +112,7 @@ output xmlfile: simgrid_topo/crossbar_64.xml
 
 ### 単一シミュレーション実行
 
-- 例: is.W.64
+例: is.W.64
 
 - コマンド
 ```
