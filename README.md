@@ -160,6 +160,10 @@ The simulation took 0.676308 seconds (after parsing and platform setup)
 - simgrid_topo内に、ログファイル (crossbar_64_is.W.64.log), 通信トレースのcsvファイル (crossbar_64_is.W.64_trace_0.csv) が保存される
   - logファイル内のMop/s を性能評価結果として利用することが多い
   - csvファイルに計算ノード間の通信トレース（src,dst,size,rate,start,latency,route）が記録される
+- 実態としては以下のコマンドを実行している
+```
+smpirun --cfg=smpi/privatize_global_variables:yes -platform ./simgrid_topo/crossbar_64.xml -hostfile ./simgrid_topo/crossbar_64.txt ./bin/is.W.64 --log=chaix.threshold:verbose --log=chaix.fmt:%m%n --log=chaix.app:splitfile:1000000000:./simgrid_topo//crossbar_64_is.W.64_trace_%.csv
+```
 
  ### シミュレーションの一括実行
  
