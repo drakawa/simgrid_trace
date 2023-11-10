@@ -1,0 +1,69 @@
+# NS3 is disabled because the version in ubuntu precise does not lead
+# to the same timings (precision error?)
+# Reenable with 
+#   cmake -Denable_ns3
+#   apt-get libns3-dev ns3
+#
+#
+#sudo: required
+dist: trusty
+language: cpp
+compiler:
+   - gcc
+#  - clang # boost 1.48 raises an error on clang:
+#            /usr/include/boost/signals2/detail/auto_buffer.hpp:565:57: error:
+#              reference to non-static member function must be called
+#                        std::uninitialized_fill( buffer_, buffer_ + size, init_value );
+#                                                                    ^~~~
+#
+addons:
+  apt:
+    packages:
+    - cmake
+    - valgrind
+    - default-jdk
+    - gfortran
+    - libboost-dev
+    - libboost-all-dev
+    - libdw-dev
+    - libevent-dev
+    - libunwind8-dev
+  coverity_scan:
+    project:
+      name: "simgrid/simgrid"
+      description: "Build submitted via Travis CI"
+    notification_email: martin.quinson@ens-rennes.fr
+    build_command_prepend: "cmake -Denable_documentation=OFF -Denable_coverage=ON -Denable_java=OFF -Denable_model-checking=OFF -Denable_lua=OFF -Denable_compile_optimizations=ON -Denable_smpi=ON -Denable_smpi_MPICH3_testsuite=OFF -Denable_compile_warnings=OFF ."
+    build_command:   "make VERBOSE=1"
+    branch_pattern: coverity
+
+# Don't install lua from Debian as we need 5.3 and don't have a backport.
+#   Installing lua from the source does not make any dynamic library.
+#   - curl http://www.lua.org/ftp/lua-5.3.1.tar.gz | tar xz
+#   - cd lua-5.3.1 
+#   -   if [ ${TRAVIS_OS_NAME} = 'linux' ] ; then make linux ; else make macosx ; fi
+#   -   make INSTALL_TOP=$TRAVIS_BUILD_DIR/LuaInstall install
+#   - cd ..
+#   - ls -lR $TRAVIS_BUILD_DIR/LuaInstall
+
+script:
+   - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then brew update; fi
+   - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then brew install python3; fi
+   - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then cmake -Denable_model-checking=OFF -Denable_documentation=OFF -Denable_coverage=ON -Denable_java=ON -Denable_lua=OFF -Denable_compile_optimizations=ON -Denable_smpi=ON -Denable_smpi_MPICH3_testsuite=OFF -Denable_compile_warnings=ON .; fi
+   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake -Denable_model-checking=ON  -Denable_documentation=OFF -Denable_coverage=ON -Denable_java=ON -Denable_lua=OFF -Denable_compile_optimizations=ON -Denable_smpi=ON -Denable_smpi_MPICH3_testsuite=ON -Denable_compile_warnings=ON .; fi
+   # run make and ctest in the sonar wrapper on master/linux; run it directly in PR or OSX
+   - if [[ "$TRAVIS_OS_NAME" == "linux" ]] && [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]; then ./tools/internal/travis-sonarqube.sh make VERBOSE=1; else make VERBOSE=1 && ctest --output-on-failure --timeout 100; fi
+notifications:
+  recipients:
+    - martin.quinson@ens-rennes.fr
+  email:
+    on_success: change
+    on_failure: always
+  irc:
+    channels:
+      - "irc.debian.org#simgrid"
+  template:
+    - "%{repository}/%{branch} (%{commit} - %{author}): %{message}"
+os:
+  - linux
+  - osx
