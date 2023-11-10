@@ -50,7 +50,7 @@ Creating simgrid_trace_test_1 ... done
     - simgrid3.18のインストール
   
 ## Nas Parallel Benchmarks 3.3 (NPB3.3-MPI) のmake
-- コンテナ内のシェルへの接続
+- コンテナ内のシェルへの接続コマンド
 ```
 docker-compose exec test /bin/bash
 ```
